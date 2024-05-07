@@ -1,0 +1,23 @@
+services:
+  api:
+    build:
+      context: ./app
+    ports:
+      - "9000:9000"
+    networks:
+      - app-network
+
+  webserver:
+    restart: always
+    build:
+      context: ./webserver
+    ports:
+      - "80:80"
+    depends_on:
+      - api
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge  
